@@ -2,12 +2,12 @@ var clickedCard = null;
 var openCards = [];
 var lockedCards = [];
 var moves = 0;
-var lives = 8;
 var mathced = false;
 var stars = $(".fa-star");
 var starsNo = 3;
 var start;
 var gameTimer;
+var wrong = 0;
 
 
 /* Shuffle the deck when restart or play again button is clicked */
@@ -49,10 +49,6 @@ function initGame() {
 	    displayMoves();
 	}
 	
-	  if(lives == 0) {
-		gameOver();
-	    }
-	
 	if(lockedCards.length == 16){
 	    $('.displayTime').text($('.Timer').text());
 	    $('.displayFinalScore').text(moves);
@@ -76,7 +72,6 @@ function playAgain() {
     resetDeck();
     resetScore();
     displayMoves();
-    resetLives();
     playTime();
     shuffleDeck();
 }
@@ -93,14 +88,10 @@ $(".restart").click(function() {
   
 })
 
-function gameOver() {
-    $("#gameOver").fadeIn("slow", "swing");
-}
 
 function reduceLife() {
-    lives -= 1;
-    if(lives%3==0) {
-	$(stars[lives/3]).css("color", "white");
+    if(wrong%3 == 0 && starsNo > 1) {
+	$(stars[starsNo-1]).css("color", "white");
 	starsNo -= 1;
     }
 }
@@ -132,6 +123,7 @@ $.fn.extend({
 });
 
 function wrongGuess() {
+    wrong += 1;
     for(card of openCards) {
 	$(card).addTemporaryClass("animated wobble wrongAnswer", 1000);
     }
@@ -180,10 +172,6 @@ function resetScore() {
     $(".fa-star").css("color", "black");
     moves = 0;
     $(".movesCount").text(moves);
-}
-
-function resetLives() {
-    lives = 8;
 }
 
 function shuffleDeck() {
