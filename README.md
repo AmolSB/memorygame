@@ -11,4 +11,4 @@ Click the cards. If the cards are same, then your guess is right, otherwise, wro
 * [JQuery](http://jquery.com/) is used for DOM Manipulation.
 ## Play Game 
 Click the link below
-[Memory Game](https://amolsb.github.io/memorygame/)
+* [Memory Game](https://amolsb.github.io/memorygame/)
