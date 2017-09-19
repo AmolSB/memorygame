@@ -7,7 +7,7 @@ var stars = $(".fa-star");
 var starsNo = 3;
 var start;
 var gameTimer;
-var wrong = 0;
+
 
 
 /* Shuffle the deck when restart or play again button is clicked */
@@ -43,9 +43,10 @@ function initGame() {
 		rightGuess();
 	    } else {
 		wrongGuess();
-		reduceLife();
+		if(moves == 9 || moves == 15)
+		    reduceLife();
 	    }
-	    moves += 1;
+	    increaseMoves();
 	    displayMoves();
 	}
 	
@@ -90,10 +91,8 @@ $(".restart").click(function() {
 
 
 function reduceLife() {
-    if(wrong%3 == 0 && starsNo > 1) {
-	$(stars[starsNo-1]).css("color", "white");
-	starsNo -= 1;
-    }
+    $(stars[starsNo-1]).css("color", "white");
+    starsNo -= 1;
 }
 
 function increaseMoves() {
@@ -123,7 +122,6 @@ $.fn.extend({
 });
 
 function wrongGuess() {
-    wrong += 1;
     for(card of openCards) {
 	$(card).addTemporaryClass("animated wobble wrongAnswer", 1000);
     }
@@ -164,6 +162,7 @@ function clickedTwice(obj) {
 
 
 function resetDeck() {
+    starsNo = 3;
     $("ul.deck").children().removeClass("open show match");
     $(".end-screen").css("display", "none");
 }
@@ -173,6 +172,7 @@ function resetScore() {
     moves = 0;
     $(".movesCount").text(moves);
 }
+
 
 function shuffleDeck() {
     var deckCards = $('ul.deck').children();
@@ -193,4 +193,3 @@ function playTime() {
 
 
 initGame();
-
