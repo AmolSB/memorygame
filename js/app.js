@@ -45,8 +45,9 @@ function initGame() {
 		wrongGuess();
 	    }
 	    increaseMoves();
-		if(moves == 9 || moves == 15)
+	    if(moves == 9 || moves == 15) {
 		reduceLife();
+	    }
 	    displayMoves();
 	}
 	
